@@ -26,6 +26,9 @@ module.exports = {
       auth_code: {
         type: Sequelize.STRING
       },
+      status: {
+        type: Sequelize.STRING
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

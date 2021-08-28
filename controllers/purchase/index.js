@@ -9,8 +9,7 @@ exports.purchaseItem = async(req,res)=>{
 
     const today = new Date();
     const date = JSON.stringify(today).split('T')[0];
-    const time = `${date} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}` 
-
+    const time = `${date} ${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     try{
 
         switch(type){
@@ -37,33 +36,83 @@ exports.purchaseItem = async(req,res)=>{
                     })
                 }
 
+                const credit_expense = ExpenseLog.build({
+                    user_id:credit_card_details.user.id,
+                    card_type:type,
+                    card_number : card.number,
+                    currency,
+                    amount,
+                    auth_code: "SDSD23232333",
+                    status:""
+                });
+            
                 if(credit_card_details.cvv != card.cvv || credit_card_details.expiration_month != card.expirationMonth || credit_card_details.expiration_year != card.expirationYear  ){
+
+                    credit_expense.status = "fail";
+                    credit_expense.save();
+    
                     return res.status(422).json({
-                        error:true,
-                        message:"CARD_DENIED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
 
                 }
 
                 if(currency != "USD"){
+
+                    credit_expense.status = "fail";
+                    credit_expense.save();
+
                     return res.status(422).json({
-                        error:true,
-                        message:"ONLY_USD_ALLOWED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
                 if(amount < 0 ){
+
+                    credit_expense.status = "fail";
+                    credit_expense.save();
+
                     return res.status(422).json({
-                        error:true,
-                        message:"AMOUNT_NEGATIVE"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
 
                 if(amount > credit_card_details.monthly_limit){
                     return res.status(422).json({
-                        error:true,
-                        message:"AMOUNT_LIMIT_CROSSED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
@@ -80,15 +129,7 @@ exports.purchaseItem = async(req,res)=>{
                     }
                 })
 
-                const credit_expense = ExpenseLog.build({
-                    user_id:credit_card_details.user.id,
-                    card_type:type,
-                    card_number : card.number,
-                    currency,
-                    amount,
-                    auth_code: "SDSD23232333",
-                })
-
+                credit_expense.status = "success";
                 credit_expense.save();
 
                 return res.status(200).json({
@@ -126,34 +167,88 @@ exports.purchaseItem = async(req,res)=>{
                     })
                 }
 
+                const debit_expense = ExpenseLog.build({
+                    user_id:debit_card_details.user.id,
+                    card_type:type,
+                    card_number : card.number,
+                    currency,
+                    amount,
+                    auth_code: "SDSD23232333",
+                    status:""
+                })
+
 
                 if(debit_card_details.cvv != card.cvv || debit_card_details.expiration_month != card.expirationMonth || debit_card_details.expiration_year != card.expirationYear  ){
+
+                    debit_expense.status = "fail";
+                    debit_expense.save();
+    
                     return res.status(422).json({
-                        error:true,
-                        message:"CARD_DENIED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
 
                 }
 
                 if(currency != "USD"){
+
+                    debit_expense.status = "fail";
+                    debit_expense.save();
+
                     return res.status(422).json({
-                        error:true,
-                        message:"ONLY_USD_ALLOWED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
                 if(amount < 0 ){
+
+                    debit_expense.status = "fail";
+                    debit_expense.save();
+    
                     return res.status(422).json({
-                        error:true,
-                        message:"AMOUNT_NEGATIVE"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
                 
                 if(amount > debit_card_details.balance){
+
+                    debit_expense.status = "fail";
+                    debit_expense.save();
+    
                     return res.status(422).json({
-                        error:true,
-                        message:"AMOUNT_LIMIT_CROSSED"
+                        amount,
+                        currency,
+                        type,
+                        card: {
+                            number:card.number
+                        },
+                        status: "fail",
+                        authorization_code: "SDSD23232333",
+                        time
                     })
                 }
 
@@ -166,15 +261,7 @@ exports.purchaseItem = async(req,res)=>{
                     }
                 })
 
-                const debit_expense = ExpenseLog.build({
-                    user_id:debit_card_details.user.id,
-                    card_type:type,
-                    card_number : card.number,
-                    currency,
-                    amount,
-                    auth_code: "SDSD23232333",
-                })
-
+                debit_expense.status = "success";
                 debit_expense.save();
 
                 return res.status(200).json({

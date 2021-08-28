@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     card_number: DataTypes.STRING,
     currency: DataTypes.STRING,
     amount: DataTypes.DOUBLE,
-    auth_code: DataTypes.STRING
+    auth_code: DataTypes.STRING,
+    status:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'expense_log',
