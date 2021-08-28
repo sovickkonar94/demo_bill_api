@@ -1,7 +1,7 @@
 const User = require('../../models').user;
 const Credit = require('../../models').credit;
 const Debit = require('../../models').debit;
-
+const ExpenseLog = require('../../models').expense_log;
 exports.addUser = async(req,res)=>{
     try{
 
@@ -84,6 +84,12 @@ exports.viewUser = async(req,res)=>{
                 },
                 {
                     model:Debit,
+                    attributes:{
+                        exclude:['createdAt','updatedAt']
+                    }
+                },
+                {
+                    model:ExpenseLog,
                     attributes:{
                         exclude:['createdAt','updatedAt']
                     }
