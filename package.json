@@ -1,0 +1,37 @@
+{
+  "name": "demo_bill_api",
+  "version": "1.0.0",
+  "description": "a demo api to perform transaction using a demo credit and debit card using mysql and express.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sovickkonar94/demo_bill_api.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "sovick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sovickkonar94/demo_bill_api/issues"
+  },
+  "homepage": "https://github.com/sovickkonar94/demo_bill_api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "mysql2": "^2.3.0",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "sequelize-cli": "^6.2.0"
+  }
+}
