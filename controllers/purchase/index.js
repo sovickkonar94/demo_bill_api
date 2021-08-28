@@ -1,5 +1,7 @@
+const User = require('../../models').user;
 const Debit = require('../../models').debit;
 const Credit = require('../../models').credit;
+const ExpenseLog = require('../../models').expense_log;
 
 exports.purchaseItem = async(req,res)=>{
 
@@ -18,7 +20,13 @@ exports.purchaseItem = async(req,res)=>{
                 let credit_card_details = await Credit.findOne({
                     where:{
                         number:card.number
-                    }
+                    },
+                    include:[
+                        {
+                            model:User,
+                            attributes:['id']
+                        }
+                    ]
                 });
 
                 // verify credentials 
@@ -72,6 +80,17 @@ exports.purchaseItem = async(req,res)=>{
                     }
                 })
 
+                const credit_expense = ExpenseLog.build({
+                    user_id:credit_card_details.user.id,
+                    card_type:type,
+                    card_number : card.number,
+                    currency,
+                    amount,
+                    auth_code: "SDSD23232333",
+                })
+
+                credit_expense.save();
+
                 return res.status(200).json({
                     amount,
                     currency,
@@ -83,14 +102,20 @@ exports.purchaseItem = async(req,res)=>{
                     authorization_code: "SDSD23232333",
                     time
                 })
-                
+
             case 'debitcard':
 
                 // fetch the details of the debit card 
                 let debit_card_details = await Debit.findOne({
                     where:{
                         number:card.number
-                    }
+                    },
+                    include:[
+                        {
+                            model:User,
+                            attributes:['id']
+                        }
+                    ]
                 });
 
                 // verify credentials 
@@ -140,6 +165,17 @@ exports.purchaseItem = async(req,res)=>{
                         number:card.number
                     }
                 })
+
+                const debit_expense = ExpenseLog.build({
+                    user_id:debit_card_details.user.id,
+                    card_type:type,
+                    card_number : card.number,
+                    currency,
+                    amount,
+                    auth_code: "SDSD23232333",
+                })
+
+                debit_expense.save();
 
                 return res.status(200).json({
                     amount,
