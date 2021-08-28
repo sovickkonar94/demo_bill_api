@@ -24,9 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     expiration_year: DataTypes.INTEGER,
     cvv: DataTypes.INTEGER,
     currency:DataTypes.STRING,
-    expenditure: DataTypes.DECIMAL(10,2),
-    month_limit: DataTypes.DECIMAL(10,2),
-    day_limit: DataTypes.DECIMAL(10,2)
+    expenditure: DataTypes.DOUBLE,
+    month_limit: DataTypes.DOUBLE
   }, {
     sequelize,
     modelName: 'credit',

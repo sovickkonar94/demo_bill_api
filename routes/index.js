@@ -1,10 +1,9 @@
 const router = require('express').Router();
-const Debit = require('./debit');
-const Credit = require('./credit');
+
+const Purchase = require('./purchase');
 const User = require('./user');
 
 router.use('/user',User);
-router.use('/debit',Debit);
-router.use('/credit',Credit);
+router.use('/purchase',Purchase);
 
 module.exports = router;

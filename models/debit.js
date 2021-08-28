@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     expiration_year: DataTypes.INTEGER,
     cvv: DataTypes.INTEGER,
     currency:DataTypes.STRING,
-    balance: DataTypes.DECIMAL(10,2),
-    day_limit: DataTypes.DECIMAL(10,2)
+    balance: DataTypes.DOUBLE,
+    day_limit: DataTypes.DOUBLE
   }, {
     sequelize,
     modelName: 'debit',

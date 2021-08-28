@@ -37,10 +37,6 @@ module.exports = {
         type: Sequelize.DOUBLE,
         defaultValue:50000.00
       },
-      day_limit: {
-        type: Sequelize.DOUBLE,
-        defaultValue:10000.00
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
