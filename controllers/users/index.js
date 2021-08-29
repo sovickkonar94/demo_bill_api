@@ -35,14 +35,10 @@ exports.addUser = async(req,res)=>{
         //create debit card body
         const new_debit_card = Debit.build({
             user_id:saved_user.id,
-            number:(Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10),
-            cvv:Math.floor(Math.random()*(999-100+1)+100)
         });
 
         const new_credit_card = Credit.build({
             user_id:saved_user.id,
-            number:(Math.random()+' ').substring(2,10)+(Math.random()+' ').substring(2,10),
-            cvv:Math.floor(Math.random()*(999-100+1)+100)
         })
 
         await new_debit_card.save();

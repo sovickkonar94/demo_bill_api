@@ -24,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     cvv: DataTypes.INTEGER,
     currency:DataTypes.STRING,
     balance: DataTypes.DOUBLE,
-    day_limit: DataTypes.DOUBLE
   }, {
     sequelize,
     modelName: 'debit',

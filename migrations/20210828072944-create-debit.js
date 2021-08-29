@@ -12,7 +12,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       number: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue:"4111111111111111",
       },
       expiration_month: {
         type: Sequelize.INTEGER,
@@ -23,7 +24,8 @@ module.exports = {
         defaultValue:2030
       },
       cvv: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue:111
       },
       currency:{
         type:Sequelize.STRING,
@@ -32,10 +34,6 @@ module.exports = {
       balance: {
         type: Sequelize.DOUBLE,
         defaultValue:1000.00
-      },
-      day_limit: {
-        type: Sequelize.DOUBLE,
-        defaultValue:100.00
       },
       created_at: {
         allowNull: false,

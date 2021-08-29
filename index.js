@@ -23,3 +23,5 @@ app.listen(PORT,async ()=>{
         process.exit(1);
     }
 });
+
+module.exports = app; // need the app reference for unit tests
